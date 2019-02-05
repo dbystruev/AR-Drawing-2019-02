@@ -122,6 +122,7 @@
 				TargetAttributes = {
 					BEDB2ED5200EABAD001C6BBC = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -320,7 +321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.ARKit-Drawing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -339,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.ARKit-Drawing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

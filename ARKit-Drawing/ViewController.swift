@@ -5,7 +5,13 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    
     let configuration = ARWorldTrackingConfiguration()
+    
+    var selectedNode: SCNNode?
+    
+    var placedNodes = [SCNNode]()
+    var planeNodes = [SCNNode]()
     
     enum ObjectPlacementMode {
         case freeform, plane, image
@@ -55,6 +61,7 @@ extension ViewController: OptionsViewControllerDelegate {
     
     func objectSelected(node: SCNNode) {
         dismiss(animated: true, completion: nil)
+        selectedNode = node
     }
     
     func togglePlaneVisualization() {
@@ -67,5 +74,41 @@ extension ViewController: OptionsViewControllerDelegate {
     
     func resetScene() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - ... Touches
+extension ViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        guard let node = selectedNode else { return }
+        guard let touch = touches.first else { return }
+        
+        switch objectMode {
+        case .freeform:
+            addNodeInFront(node)
+        case .plane:
+            break
+        case .image:
+            break
+        }
+    }
+    
+    func addNodeInFront(_ node: SCNNode) {
+        guard let camera = sceneView.session.currentFrame?.camera else { return }
+        
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.2
+        
+        node.simdTransform = matrix_multiply(camera.transform, translation)
+        
+        addNodeToSceneRoot(node)
+    }
+    
+    func addNodeToSceneRoot(_ node: SCNNode) {
+        let cloneNode = node.clone()
+        sceneView.scene.rootNode.addChildNode(cloneNode)
+        placedNodes.append(cloneNode)
     }
 }
